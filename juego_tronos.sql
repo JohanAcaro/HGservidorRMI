@@ -33,7 +33,7 @@ VALUES
     
 
 
-INSERT INTO personaje (Nombre, Casa, Edad, Título)
+INSERT INTO personaje (Nombre, Casa, Edad, Titulo)
 VALUES
     ("Ned Stark", 1, 35, "Señor de Invernalia"),
     ("Daenerys Targaryen", 2, 20, "Madre de Dragones"),
