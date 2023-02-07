@@ -7,6 +7,7 @@ import org.example.database.entities.Casa;
 import org.example.database.entities.Personaje;
 
 import java.io.Serial;
+import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
     @Serial
     private static final long serialVersionUID = -4817856459999901795L;
 
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "curso";
     private ArrayList<Personaje> personajes;
     private ArrayList<Casa> casas;
     EntityManagerFactory factoria = Persistence.createEntityManagerFactory("juego_tronos");
@@ -30,6 +33,10 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
 
     }
 
+    public boolean iniciarSesion(String username, String password) throws RemoteException {
+        return username.equals(USERNAME) && password.equals(PASSWORD);
+    }
+
     @Override
     public String buscarPersonaje(String nombre) throws Exception {
         String sql = "SELECT p FROM Personaje p WHERE p.nombre = :nombre";
@@ -37,9 +44,12 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
         personajeConsulta.setParameter("nombre", nombre);
         personajes = (ArrayList<Personaje>) personajeConsulta.getResultList();
         String resultado = "";
-        for (Personaje personaje : personajes) {
-            resultado = "Nombre: " + personaje.getNombre() + " - Casa: " + personaje.getCasa().getNombre() +
-                        " - Edad: " + personaje.getEdad() + " - Titulo: " + personaje.getTitulo();
+        for (Personaje p : personajes) {
+            resultado = "Nombre: " + p.getNombre() +
+                        "\nCasa: " + p.getCasa().getNombre() +
+                        "\nEdad: " + p.getEdad() +
+                        "\nTitulo: " + p.getTitulo()+
+                        "\n";
         }
         return resultado;
     }
@@ -52,14 +62,12 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
         personajeConsulta.setParameter("casa", casa);
         personajes = (ArrayList<Personaje>) personajeConsulta.getResultList();
         StringBuilder resultado = new StringBuilder();
-        for (Personaje personaje : personajes) {
-            resultado.append("Nombre: ").append(personaje.getNombre()).append(" - Casa: ")
-                    .append(personaje.getCasa().getNombre()).append(" - Edad: ")
-                    .append(personaje.getEdad()).append(" - Titulo: ").append(personaje.getTitulo());
-            //Si hay mas de un personaje en la casa se separa por un salto de linea
-            if (personajes.size() > 1) {
-                resultado.append("\n");
-            }
+        for (Personaje p : personajes) {
+            resultado.append("Nombre: ").append(p.getNombre())
+                    .append(" - Casa: ").append(p.getCasa().getNombre())
+                    .append(" - Edad: ").append(p.getEdad())
+                    .append(" - Titulo: ").append(p.getTitulo())
+                    .append("\n");
         }
         return resultado.toString();
     }
@@ -71,8 +79,11 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
         casaConsulta.setParameter("nombreCasa", nombreCasa);
         casas= (ArrayList<Casa>) casaConsulta.getResultList();
         String resultado = "";
-        for (Casa casa : casas) {
-            resultado = "Nombre: " + casa.getNombre() + "\nLema: " + casa.getLema() + "\nEscudo: " + casa.getEscudo();
+        for (Casa c : casas) {
+            resultado = "Nombre: " + c.getNombre() +
+                        "\nLema: " + c.getLema() +
+                        "\nEscudo: " + c.getEscudo()+
+                        "\n";
         }
         return resultado;
     }
@@ -83,14 +94,12 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
         personajes = new ArrayList<>(personajesConsulta.getResultList());
         StringBuilder resultado = new StringBuilder();
 
-        for (Personaje personaje : personajes) {
-            resultado.append("Nombre: ").append(personaje.getNombre()).append(" - Casa: ")
-                    .append(personaje.getCasa().getNombre()).append(" - Edad: ")
-                    .append(personaje.getEdad()).append(" - Titulo: ").append(personaje.getTitulo());
-            //Si hay mas de un personaje en la casa se separa por un salto de linea
-            if (personajes.size() > 1) {
-                resultado.append("\n");
-            }
+        for (Personaje p : personajes) {
+            resultado.append("Nombre: ").append(p.getNombre())
+                    .append(" - Casa: ").append(p.getCasa().getNombre())
+                    .append(" - Edad: ").append(p.getEdad())
+                    .append(" - Titulo: ").append(p.getTitulo())
+                    .append("\n");
         }
         return resultado.toString();
     }
@@ -100,13 +109,11 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
         var casasConsulta = em.createNamedQuery("Casa.findAll", Casa.class);
         casas = new ArrayList<>(casasConsulta.getResultList());
         StringBuilder resultado = new StringBuilder();
-        for (Casa casa : casas) {
-            resultado.append("Nombre: ").append(casa.getNombre()).append("\nLema: ")
-                    .append(casa.getLema()).append("\nEscudo: ").append(casa.getEscudo());
-            //Si hay mas de un personaje en la casa se separa por un salto de linea
-            if (casas.size() > 1) {
-                resultado.append("\n");
-            }
+        for (Casa c : casas) {
+            resultado.append("Nombre: ").append(c.getNombre())
+                    .append(" - Lema: ").append(c.getLema())
+                    .append(" - Escudo: ").append(c.getEscudo())
+                    .append("\n");
         }
         return resultado.toString();
     }
