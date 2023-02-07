@@ -1,6 +1,6 @@
-# noinspection SqlNoDataSourceInspectionForFile
-
 CREATE DATABASE juego_tronos;
+
+USE juego_tronos;
 
 CREATE TABLE casa (
     ID INT AUTO_INCREMENT PRIMARY KEY,
