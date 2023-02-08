@@ -65,6 +65,9 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
                         "\nTitulo: " + p.getTitulo() +
                         "\n";
             }
+            if (resultado.equals("")) {
+                resultado = "No se ha encontrado ningún personaje con ese nombre\n";
+            }
             // Devolver el resultado
             return resultado;
         }
@@ -94,9 +97,11 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
                         .append(" - Titulo: ").append(p.getTitulo())
                         .append("\n");
             }
+            if (resultado.toString().equals("")) {
+                resultado = new StringBuilder("No se ha encontrado ningún personaje de esa casa\n");
+            }
             // Devolver el resultado
             return resultado.toString();
-
         }
         catch (Exception e){
             return "Error: " + e.getMessage();
@@ -121,6 +126,9 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
                         "\nLema: " + c.getLema() +
                         "\nEscudo: " + c.getEscudo()+
                         "\n";
+            }
+            if (resultado.equals("")) {
+                resultado = "No se ha encontrado ninguna casa con ese nombre\n";
             }
             // Devolver el resultado
             return resultado;
