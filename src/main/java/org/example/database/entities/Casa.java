@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+// Clase que representa la tabla Casa de la base de datos
 @Entity
 @NamedQuery(name="Casa.findAll", query="SELECT c FROM Casa c")
 public class Casa implements Serializable {

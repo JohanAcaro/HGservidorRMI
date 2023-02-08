@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 
+// Clase que representa la tabla Personaje de la base de datos
 @Entity
 @NamedQuery(name = "Personaje.findAll", query = "SELECT p FROM Personaje p")
 public class Personaje implements Serializable {
