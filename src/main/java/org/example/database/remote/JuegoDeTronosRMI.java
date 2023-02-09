@@ -27,13 +27,13 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
     // Constructor
     public JuegoDeTronosRMI() throws Exception {
         //Todos los personajes y casas de la Entity Personaje y Entity Casa
-        //Inner Join
         var personajesConsulta = em.createNamedQuery("Personaje.findAll", Personaje.class);
         personajes = new ArrayList<>(personajesConsulta.getResultList());
 
         var casasConsulta = em.createNamedQuery("Casa.findAll", Casa.class);
         casas = new ArrayList<>(casasConsulta.getResultList());
     }
+
     // Métodos de la interfaz
     // Iniciar sesión
     public boolean iniciarSesion(String username, String password) throws RemoteException{
@@ -107,6 +107,7 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
             return "Error: " + e.getMessage();
         }
     }
+
     // Buscar una casa por nombre
     @Override
     public String buscarCasa(String nombreCasa) {
@@ -141,9 +142,6 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
     @Override
     public String allPersonajes() {
         try {
-            // setencia sql para buscar todos los personajes
-            var personajesConsulta = em.createNamedQuery("Personaje.findAll", Personaje.class);
-            personajes = new ArrayList<>(personajesConsulta.getResultList());
             // Crear un StringBuilder para guardar los datos de los personajes
             StringBuilder resultado = new StringBuilder();
             // Recorrer el ArrayList de personajes y guardar los datos en el StringBuilder
@@ -166,9 +164,6 @@ public class JuegoDeTronosRMI extends UnicastRemoteObject implements JuegoDeTron
     @Override
     public String allCasas() {
         try {
-            // setencia sql para buscar todas las casas
-            var casasConsulta = em.createNamedQuery("Casa.findAll", Casa.class);
-            casas = new ArrayList<>(casasConsulta.getResultList());
             // Crear un StringBuilder para guardar los datos de las casas
             StringBuilder resultado = new StringBuilder();
             // Recorrer el ArrayList de casas y guardar los datos en el StringBuilder
